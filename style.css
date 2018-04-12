@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}  
+
+.wrapper {
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 10px;
+    width: 500px;
+    min-height: 700px;
+    -webkit-box-shadow: 0px 9px 26px 0px rgba(0,0,0,0.37);
+    -moz-box-shadow: 0px 9px 26px 0px rgba(0,0,0,0.37);
+    box-shadow: 0px 9px 26px 0px rgba(0,0,0,0.37);
+    box-sizing: border-box;
+    background: linear-gradient(#1D2B64, #f8cdda);
+}
+
+.form {
+    padding-bottom: 20px;
+}
+
+.title {
+    text-align: center;
+    margin-top: 0;
+    color: #fff;
+    font-weight: normal;
+    letter-spacing: 3px;
+}
+
+.input {
+    width: 80%;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: none;
+}
+
+.input:hover {
+    background-color: rgb(238, 238, 238);
+    transition: all 0.2s;
+}
+
+.toDo {
+    height: 30px;
+    width: 19%;
+    color: #fff;
+    font-weight: bold;
+    box-sizing: border-box;
+    background-color: #a5cc82;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.toDo .add {
+    font-size: 30px;
+    line-height: 0;
+    vertical-align: middle;
+}
+
+.toDo:hover {
+    background-color: #99bd79;
+    transition: all 0.2s;
+}
+
+.output {
+    margin: 0;
+    padding: 0;
+}
+
+.output .list {
+    width: 480px;
+    min-height: 30px;
+    list-style: none;
+    line-height: 30px;
+    font-size: 22px;
+    padding-left: 50px;
+    margin-bottom: 3px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: rgba(231, 231, 231, 0.623);
+}
+
+.output .list:hover {
+    cursor: pointer;
+    background-color: rgb(231, 231, 231);
+    transition: all 0.2s;
+}
+
+.checkbox {
+    float: left;
+}
+
+.output .checked {
+    background: url("img/checkmark.png") no-repeat 5px 2px;
+    background-size: 5%;
+    color: rgba(0, 0, 0, 0.452);
+    background-color: rgba(231, 231, 231, 0.356);
+}
+
+.delBtn {
+    display: block;
+    float: right;
+    width: 30px;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+}
+
+.output .list:hover .delBtn {
+    background-color: tomato;
+}
