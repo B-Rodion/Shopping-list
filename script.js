@@ -1,71 +1,119 @@
-var button = document.querySelector(".toDo");
-var input = document.querySelector(".input");
-var ul = document.querySelector(".output");
+(function() {
+  var btnCheckAll = document.querySelector(".checkBtn");
+  var btnDeleteAll = document.querySelector(".deleteBtn");
+  var btnFilterActive = document.querySelector(".filter-active");
+  var btnAdd = document.querySelector(".toDo");
+  var todoInput = document.querySelector(".input");
+  var todosUl = document.querySelector(".output");
+  var counter = document.querySelector(".counter");
 
-var textContainer = [];
+  var todoArr = [];
 
-function ToDo(text) {
+  function ToDo(text) {
     this.isCompleted = false;
     this.text = text;
-};
+  };
 
-button.onclick = function() {
-    var inputText = input.value;
-    var obj = new ToDo(inputText);
-    textContainer.push(obj);
+  btnAdd.addEventListener("click", function() {
+    if (!validateInput(todoInput)) return;
+    
+    var inputText = todoInput.value;
+    var todoObj = new ToDo(inputText);
+    todoArr.unshift(todoObj);
 
-    var li = document.createElement("li");
-    var ul = document.querySelector(".output");
-    var liText = document.createTextNode(inputText);
-    var list = document.querySelector("li");
-    var ul = document.querySelector(".output");
-
-    li.appendChild(liText);
+    var todoLi = document.createElement("li");
+    todoLi.appendChild(document.createTextNode(inputText));
+    todoLi.className = "list";
 
     var buttonDel = document.createElement("span");
-    var buttonText = document.createTextNode("\u00D7");
+    buttonDel.appendChild(document.createTextNode("\u00D7"));
     buttonDel.className = "delBtn";
-    buttonDel.appendChild(buttonText);
-    li.appendChild(buttonDel);
+    todoLi.appendChild(buttonDel);
 
-	if (inputText === "") {
-        alert("Текстовое поле не должно быть пустым!");
-    } else if (!list) {
-        ul.insertBefore(li, null);
-        li.classList.add("list");
+    todoLi.addEventListener("click", function(event) {
+      todoObj.isCompleted = !todoObj.isCompleted;
+      if (todoObj.isCompleted) {
+        todoLi.classList.add("checked");
+      } else {
+        todoLi.classList.remove("checked");
+      }
+      console.log(todoArr);
+    });
+
+    buttonDel.addEventListener("click", function(event) {
+      event.stopPropagation();
+
+      var index = todoArr.indexOf(todoObj);
+      todoArr.splice(index, 1);
+
+      todoLi.parentNode.removeChild(todoLi);
+      console.log(todoArr);
+    });
+
+    btnCheckAll.addEventListener("click", function(event) {
+      // if (!validateCheckDel(todoArr)) return;
+
+      var todosLi = todosUl.querySelectorAll("li");
+      for (var i = 0; i < todosLi.length; i++) {
+        todoArr[i].isCompleted = true;
+        todosLi[i].classList.add("checked");
+      }
+      console.log(todoArr);
+    });
+
+    btnDeleteAll.addEventListener("click", function(event) {
+      // if (!validateCheckDel(todoArr)) return;
+      
+      var todosLi = todosUl.querySelectorAll("li");
+      for (var j = 0; j < todosLi.length; j++) {
+        var index = todoArr.indexOf(todoObj);
+        todoArr.splice(index, 1);
+
+        todosLi[j].parentNode.removeChild(todosLi[j]);
+      }
+      console.log(todoArr);
+    });
+
+    // btnFilterActive.addEventListener("click", function(event) {
+
+    //   for (var i = 0; i < todoArr.length; i++) {
+    //     if (todoArr[i].isCompleted == true) {
+    //       
+    //     }
+    //   }
+    // });
+
+    prepend(todosUl, todoLi);
+    todoInput.value = "";
+    console.log(todoArr);
+  });
+
+  // utils
+  function prepend(parent, child) {
+    var firstEl = parent.firstChild;
+    if (firstEl) {
+      parent.insertBefore(child, firstEl);
     } else {
-        ul.insertBefore(li, ul.firstChild);
-        li.classList.add("list");
+      parent.appendChild(child);
     }
-    
-
-    input.value = "";
-};
-
-ul.addEventListener("click", function(event) {
-    if (event.target.tagName === "LI") {
-        event.target.classList.toggle("checked");
-    } else if (event.target.tagName === "SPAN") {
-        var removeLi = event.target.parentNode;
-        removeLi.remove();
+  }
+  
+  function validateInput(input) {
+    if (input.value === "") {
+      alert("Текстовое поле не должно быть пустым!");
+      return false;
     }
-}, false);
+    return true;
+  }
 
-// ul.onclick = function(event) {
-//     if (event.target.tagName === "li") {
-//         event.target.classList.toggle("checked");
-//     }
-// };
+  // function validateCheckDel(value) {
+  //   if (value.length == 0) {
+  //     alert("Список задач пуст :(");
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
-// // if (ul.childNodes === true) {
-//     function check() {
-//         for (var i = 0; i < checkbox.length; i++) {
-//             checkbox[i].checked = "checked";
-//         }
-    
-//         // if (checkbox.checked == true) {
-//         //     checkbox.checked = false;
-//         // }
-//     }
+})();
 
 
